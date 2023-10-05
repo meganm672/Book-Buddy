@@ -55,3 +55,4 @@ export default const LoginDetails = () => {
         </div>
     );
 };
+
