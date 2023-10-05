@@ -14,7 +14,7 @@ export default function AllBooks(){
     const [books, setBooks]= useState([]);
     const [error, setError] = useState(null);
 
-    // const navigate = useNavigate();
+    const navigate = useNavigate();
 
     useEffect(() =>{
         async function fetchBookData(){
