@@ -2,45 +2,39 @@
 Fetch the book data from the provided API. Users should be able to click on an individual book to navigate to the 
 SingleBook component and view its details. */
 
-import React, {useState, useEffect } from "react"
+import React from "react"
 
-import { useNavigate } from "react-router-dom"
+import { useNavigate } from "react-router-dom";
+
+import { useGetBooksQuery } from "../redux/api";
 
 import Typography from '@mui/material/Typography';
 import  Button  from "@mui/material/Button";
 import { Card, CardActions, CardContent, CardMedia, Box, Grid, Container } from "@mui/material";
 
 export default function AllBooks(){
-    const [books, setBooks]= useState([]);
-    const [error, setError] = useState(null);
-
     const navigate = useNavigate();
+    const{ data, isLoading, error} = useGetBooksQuery();
 
-    useEffect(() =>{
-        async function fetchBookData(){
-            try{
-                const response = await fetch("https://fsa-book-buddy-b6e748d1380d.herokuapp.com/api/books");
-            const result = await response.json();
-            console.log(result.books);
-            setBooks(result.books)
-            }catch(e){
-                console.error(e)
-                setError(e)
-            }
-        }
-        fetchBookData();
-    },[])
+    if (isLoading) {
+		return <Typography>Loading...</Typography>;
+	}
 
+    if (error) {
+		return <Typography>Error: {error.message}</Typography>;
+	}
+
+    console.log(isLoading? "Loading result" : "from useGetBooksQuery", data.books)
     return(
        <Box>
             <Typography variant="h3">Books In The Libary</Typography>
-            {error && !books && (<p> Failed to load books from api</p>)}
+            {error && !data.books && (<p> Failed to load books from api</p>)}
          
                 <Grid container spacing={2}>
-                    {books
+                    {data.books
                     ?(
                     
-                        books.map((book) =>{
+                       data.books.map((book) =>{
                             return(
                                 <Grid item key={book.title}>
                                     <Card sx={{maxWidth: 350, margin: 2}} >
@@ -67,6 +61,6 @@ export default function AllBooks(){
                 </Grid>
        
        </Box>
-    )
+     )
 }
 
