@@ -18,10 +18,11 @@ const api= createApi({
         getBooks: builder.query({
             query: () => "/books",
         }),
-
+        //singlebooks query
         getSingleBook: builder.query({
             query: (bookId)=> "/books/" + bookId,
         }),
+        //add mutations below...
     })
 })
 
