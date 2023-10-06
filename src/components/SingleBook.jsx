@@ -2,7 +2,12 @@
  Fetch the book data from the provided API. You may consider conditionally rendering a 'Checkout' button for logged in users. */
 
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+
+import Typography from '@mui/material/Typography';
+import  Button  from "@mui/material/Button";
+import { Card, CardActions, CardContent, CardMedia, Box, Grid} from "@mui/material";
+
 
 export default function SingleBook() {
   const [singleBook, setSingleBook] = useState([]);
@@ -10,7 +15,7 @@ export default function SingleBook() {
   const  params = useParams();
   const bookId = params.id;
   console.log(bookId);
-
+const navigate = useNavigate()
 
   useEffect(() => {
     async function fetchSingleBookData(bookId){
@@ -30,19 +35,30 @@ export default function SingleBook() {
   
 
  return(
-     <div>
+     <Box sx= {{margin: 5}}>
          {error && !SingleBook && (<p>Failed to load Book.</p>)}
-         <div>
-             <div>
-                 <img src={singleBook.coverimage} alt={singleBook.title}></img>
-             </div>
-             <div>
-                 <h3>{singleBook.title}</h3>
-                 <p><b>Author:</b> {singleBook.author}</p>
-                 <p><b>Description:</b> {singleBook.description}</p>
-                 <p><b>Available:</b>{singleBook.available ? "true" : "false"}</p>
-             </div>
-         </div>
-     </div>
+         <Grid container>
+            <Grid item sx={{justifyContent: "center"}}>
+         <Card sx={{maxWidth: 370}}>
+             <CardMedia 
+             component="img"
+             alt={singleBook.title}
+             height="500"
+             image={singleBook.coverimage}
+             />
+            
+             <CardContent>
+                 <Typography variant="h3">{singleBook.title}</Typography>
+                 <Typography><b>Author:</b> {singleBook.author}</Typography>
+                 <Typography><b>Description:</b> {singleBook.description}</Typography>
+                 <Typography><b>Available:</b>{singleBook.available ? "true" : "false"}</Typography>
+             </CardContent>
+             <CardActions>
+                                            <Button onClick={()=> navigate("/books/")} > Back </Button> 
+                                        </CardActions>
+         </Card>
+         </Grid>
+         </Grid>
+     </Box>
      ) 
 }
