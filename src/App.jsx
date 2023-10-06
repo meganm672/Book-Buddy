@@ -5,7 +5,7 @@ import bookLogo from './assets/books.png'
 import Books from "./components/Books"
 import Navigations from './components/Navigations'
 
-import Account from './components/Account';
+// import Account from './components/Account';
 import SingleBook from './components/SingleBook'
 
 // import components from react router dom
@@ -28,8 +28,8 @@ function App() {
         <Route path="/books" element={<Books />}/>
         <Route path="/books/:id" element={<SingleBook />} />
         {/* <Route path="/login" element={<Login />} /> */}
-        <Route path="/register" element={<Register/>} />
-        <Route path="/account" element={<Account />}/>
+        {/* <Route path="/register" element={<Register/>} /> */}
+        {/* <Route path="/account" element={<Account />}/> */}
       </Routes>
 
     </>
