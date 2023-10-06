@@ -28,8 +28,8 @@ function App() {
         <Route path="/books" element={<Books />}/>
         <Route path="/books/:id" element={<SingleBook />} />
         {/* <Route path="/login" element={<Login />} /> */}
-        
-        <Route path="/account" element={<Account />}/> 
+        <Route path="/register" element={<Register/>} />
+        <Route path="/account" element={<Account />}/>
       </Routes>
 
     </>
