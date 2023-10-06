@@ -57,7 +57,7 @@ export default function AllBooks(){
                                             <Typography><b>Available: </b> {book.available ? "true" : "false"}</Typography>
                                         </CardContent>
                                         <CardActions>
-                                            <Button onClick={()=> navigate("/books/" + books.id)} >Book Info</Button> 
+                                            <Button onClick={()=> navigate("/books/" + book.id)} >Book Info</Button> 
                                         </CardActions>
                                     </Card>
                                  </Grid>
