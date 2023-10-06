@@ -4,6 +4,8 @@ import bookLogo from './assets/books.png'
 //Import the components into the app
 import Books from "./components/Books"
 import Navigations from './components/Navigations'
+import Account from './components/Account';
+
 
 // import components from react router dom
 import { Routes, Route } from "react-router-dom"
@@ -25,8 +27,8 @@ function App() {
         <Route path="/books" element={<Books />}/>
         {/* <Route path="/books/:id" element={<SingleBook />} /> */}
         {/* <Route path="/login" element={<Login />} /> */}
-        {/* <Route path="/register" element={<Register />} /> */}
-        {/* <Route path="/account" element={<Account />}/> */}
+        
+        <Route path="/account" element={<Account />}/> 
       </Routes>
 
     </>
