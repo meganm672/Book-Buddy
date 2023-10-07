@@ -23,6 +23,29 @@ const api= createApi({
             query: (bookId)=> "/books/" + bookId,
         }),
         //add mutations below...
+        //add the users register mutation
+        register: builder.mutation({
+            query: (user) => ({
+                url: '/users/register',
+                method: "POST",
+                body: user
+            }),
+            // transform the response so that we don't have to call .data all over our app
+            transformResponse: (response) => response.data,
+            // transform error response to extract the error, so we don't have to call .error to get it
+            transformErrorResponse: (response) => response.error,
+        }),
+
+        //add the login mutation 
+        login: builder.mutation({
+            query: (user) => ({
+                url: '/users/login',
+                method: "POST",
+                body: user
+            }),
+            transformResponse: (response) => response.data,
+            transformErrorResponse: (response) => response.error,
+        })
     })
 })
 
@@ -31,4 +54,6 @@ export default api;
 export const {
     useGetBooksQuery,
     useGetSingleBookQuery,
+    useRegisterMutation,
+    useLoginMutation,
 } = api;
