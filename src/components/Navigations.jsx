@@ -53,7 +53,6 @@ const Navigations= () =>{
             <img id='logo-image' src={bookLogo}/> Library App
           </Typography>
           
-          <Button color="inherit" component={RouterLink} to="/register">Register</Button>
           <Button color="inherit" component={RouterLink} to="/login">Login</Button>
           <Menu
         id="demo-positioned-menu"

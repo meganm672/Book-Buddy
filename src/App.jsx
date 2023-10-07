@@ -1,4 +1,4 @@
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import bookLogo from './assets/books.png'
 
 //Import the components into the app
@@ -14,9 +14,15 @@ import { setToken } from './redux/tokenSlice'
 // import components from react router dom
 import { Routes, Route } from "react-router-dom"
 
+import { Button } from '@mui/material'
+
 function App() {
   const token = useSelector(state => state.token);
   console.log("The Token is :", token)
+
+  const dispatch= useDispatch();
+
+
 
   return (
     <>
@@ -28,14 +34,17 @@ function App() {
 
       <p>Don't forget to set up React Router to navigate between the different views of your single page application!</p>
     <Navigations />
+    {token && (
+      <Button onClick={() => dispatch(setToken({ token: null }))} >Logout</Button>
+    )}
       <Routes>
         <Route path="/books" element={<Books />}/>
         <Route path="/books/:id" element={<SingleBook />} />
-        {/* <Route path="/login" element={<LoginForm />} /> */}
+        <Route path="/login" element={<LoginForm />} />
         {/* <Route path="/register" element={<Register/>} /> */}
-        {/* <Route path="/account" element={<Account />}/> */}
-        {token ? <Route path="/account" element={<Account />}/> : <Route path="/login" element={<LoginForm />} />}
+        <Route path="/account" element={<Account />}/>
       </Routes>
+
 
     </>
   )
