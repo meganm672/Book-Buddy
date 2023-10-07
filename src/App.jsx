@@ -5,6 +5,9 @@ import bookLogo from './assets/books.png'
 import Books from "./components/Books"
 import Navigations from './components/Navigations'
 
+
+
+import LoginDetails from './components/Login'
 import Account from './components/Account';
 import SingleBook from './components/SingleBook'
 
@@ -27,9 +30,9 @@ function App() {
       <Routes>
         <Route path="/books" element={<Books />}/>
         <Route path="/books/:id" element={<SingleBook />} />
-        {/* <Route path="/login" element={<Login />} /> */}
+        <Route path="/login" element={<LoginDetails />} />
         {/* <Route path="/register" element={<Register/>} /> */}
-        <Route path="/account" element={<Account />}/> 
+        <Route path="/account" element={<Account />}/>
       </Routes>
 
     </>
