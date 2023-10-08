@@ -1,33 +1,33 @@
 
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
-const api= createApi({
+const api = createApi({
     reducerPath: "api",
 
     baseQuery: fetchBaseQuery({
         //base url for API calls
         baseUrl: "https://fsa-book-buddy-b6e748d1380d.herokuapp.com/api",
         // set the Content-Type header to the application/json
-        prepareHeaders: (headers, {getState}) => {
+        prepareHeaders: (headers, { getState }) => {
             const token = getState().token
             headers.set("Content-Type", "application/json")
-            if(token){
+            if (token) {
                 headers.set('authorization', `Bearer ${token}`)
             }
             return headers
         },
     }),
 
-// define the API endpoints we are trying to access
+    // define the API endpoints we are trying to access
     endpoints: (builder) => ({
-        
+
         //specify the query for getting all the books
         getBooks: builder.query({
             query: () => "/books",
         }),
         //singlebooks query
         getSingleBook: builder.query({
-            query: (bookId)=> "/books/" + bookId,
+            query: (bookId) => "/books/" + bookId,
         }),
 
 
@@ -35,10 +35,10 @@ const api= createApi({
         updateBookAvailability: builder.mutation({
             query: (bookId, available) => ({
                 url: "/books/" + bookId,
-                method: "PATCH" ,
-                body: {available}
+                method: "PATCH",
+                body: { available }
             }),
-            
+        }),
         //get users/me query to view account
         getUsers: builder.query({
             query: () => "/users/me"
@@ -64,6 +64,7 @@ const api= createApi({
         })
     })
 })
+
 
 export default api;
 
