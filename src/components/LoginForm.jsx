@@ -7,30 +7,35 @@ const LoginForm = () => {
     const [register, {isLoading}] = useRegisterMutation();
     const [login] = useLoginMutation();
 
-    console.log(isLoading? "Loading result" : "from useRegisterMutation", register)
-    console.log(isLoading? "Loading result" : "from useLoginMutation", login)
+   
      // should be either login or register, to match the API routes
      const [type, setType] = useState("login");
      // form fields
-     const [fistname, setFirstname] = useState("");
+     const [firstname, setFirstname] = useState("");
      const [lastname, setLastname] = useState("");
-     const [username, setUsername] = useState("");
+     const [email, setEmail] = useState("");
      const [password, setPassword] = useState("");
      const [repeatPassword, setRepeatPassword] = useState("");
 
 
+    // const resetForm = () =>{
+    //     setFirstname("");
+    //     setLastname(""),
+    //     setEmail(""),
+    //     setPassword(""),
+    //     setRepeatPassword(""),
+    // }
 
-
-const handleSubmit = async (event) => {
+    const handleSubmit = async (event) => {
     event.preventDefault();
 
     if (type === "register") {
         // pass the new user data stored in react state
-        register({user: {username, password}});
+        register({firstname, lastname, email, password});
     }
 
     if (type === "login") {
-        login({user: {username, password}});
+        login({email, password});
     }
 
 }
@@ -47,7 +52,7 @@ return (
                 {type === "register" && <TextField
                     label="First Name"
                     onChange={e => setFirstname(e.target.value)}
-                    value={fistname}
+                    value={firstname}
                     sx={{margin: "8px 0"}}
                     />}
                 {type === "register" && <TextField
@@ -57,11 +62,12 @@ return (
                     sx={{margin: "8px 0"}}
                     />}
                 <TextField
-                    label="Username"
-                    onChange={e => setUsername(e.target.value)}
-                    value={username}
+                    label="Email"
+                    onChange={e => setEmail(e.target.value)}
+                    value={email}
                     sx={{margin: "8px 0"}}
                     />
+
                 <TextField
                     label="Password"
                     onChange={e => setPassword(e.target.value)}
@@ -86,6 +92,7 @@ return (
                 >
                     {type === "login" ? "Log In" : "Register"}
                 </Button>
+                {/* <Button onClick={resetForm}>Reset</Button> */}
                 {type === "login"
                     ? (
                         <Typography>Need to create an account?{" "}
