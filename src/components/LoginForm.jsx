@@ -19,8 +19,6 @@ const LoginForm = () => {
      const [repeatPassword, setRepeatPassword] = useState("");
 
 
-
-
 const handleSubmit = async (event) => {
     event.preventDefault();
 

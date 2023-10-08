@@ -1,7 +1,10 @@
 /* TODO - add your code to create a functional React component that renders account details for a logged in user. Fetch the account data from the provided API. You may consider conditionally rendering a message for other users that prompts them to log in or create an account.  */
 
 import React, { useEffect, useState } from 'react';
-import LoginDetails from '../components/Login';
+import LoginForm from '../components/LoginForm';
+import { useUpdateBookAvailabilityMutation } from '../redux/api';
+
+
 
 
 
@@ -9,32 +12,10 @@ export default function Account() {
    const [loginData, setLoginData] = useState(null);
    const [loading, setLoading] = useState(true);
    const [error, setError] = useState(null);
+   const [ update ] = useUpdateBookAvailabilityMutation();
     
 
-   useEffect (() => {
-    async function fetchAccountData () {
-       try {
-         const response = await fetch('https://fsa-book-buddy-b6e748d1380d.herokuapp.com/api/users/me');
-         const data = await response.json();
-         
-    if (response.ok) {
-        
-        setLoginData(data.loginData);
-        setLoading(false);
-    } else {
-        setError('Failed to fetch account data');
-        setLoading(false);
-    }
-console.log(data)
-    } catch (error) {
-        setError(error.message);
-        setLoading(false);
-    }
-
-    }
-        fetchAccountData();
-   }, []);
-
+  
 
 return (
     <div>
@@ -43,7 +24,7 @@ return (
         ) : error ? (
             <p>error</p>
         ) : loginData ? (
-            <LoginDetails loginData={loginData} />
+            <LoginForm loginData={loginData} />
         ) : (
             <p>Please log in to access your account details.</p>
         ) }
