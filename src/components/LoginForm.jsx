@@ -1,11 +1,13 @@
 import { useState } from "react";
-
+import { useNavigate } from "react-router-dom";
 import { Stack, Button, Paper, TextField, Typography, Link } from "@mui/material";
 
 import { useRegisterMutation, useLoginMutation } from "../redux/api";
+
 const LoginForm = () => {
     const [register, {isLoading}] = useRegisterMutation();
     const [login] = useLoginMutation();
+    const navigate = useNavigate();
 
    
      // should be either login or register, to match the API routes
@@ -16,7 +18,6 @@ const LoginForm = () => {
      const [email, setEmail] = useState("");
      const [password, setPassword] = useState("");
      const [repeatPassword, setRepeatPassword] = useState("");
-
 
     // const resetForm = () =>{
     //     setFirstname("");
@@ -31,11 +32,13 @@ const LoginForm = () => {
 
     if (type === "register") {
         // pass the new user data stored in react state
-        register({firstname, lastname, email, password});
+       await register({firstname, lastname, email, password});
+        navigate("/account")
     }
 
     if (type === "login") {
-        login({email, password});
+        await login({email, password});
+        navigate("/account")
     }
 
 }
@@ -80,6 +83,7 @@ return (
                         onChange={e => setRepeatPassword(e.target.value)}
                         value={repeatPassword}
                         type="password"
+                        sx={{margin: "8px 0"}}
                         error={!!(password && repeatPassword && password !== repeatPassword)}
                         helperText={password && repeatPassword && password !== repeatPassword ? "Password must match" : null}
                     />}

@@ -4,9 +4,7 @@ import bookLogo from './assets/books.png'
 //Import the components into the app
 import Books from "./components/Books"
 import Navigations from './components/Navigations'
-
 import LoginForm from './components/LoginForm'
-// import LoginDetails from './components/Login'
 import Account from './components/Account';
 import SingleBook from './components/SingleBook'
 
@@ -16,14 +14,14 @@ import { Routes, Route } from "react-router-dom"
 
 import { Button } from '@mui/material'
 
+
 function App() {
   const token = useSelector(state => state.token);
   console.log("The Token is :", token)
 
   const dispatch= useDispatch();
-
-
-
+ 
+  
   return (
     <>
       <h1><img id='logo-image' src={bookLogo}/>Library App</h1>
@@ -37,12 +35,13 @@ function App() {
     {token && (
       <Button onClick={() => dispatch(setToken({ token: null }))} >Logout</Button>
     )}
+    {/* {token ? <Account /> : <LoginForm />} */}
       <Routes>
         <Route path="/books" element={<Books />}/>
         <Route path="/books/:id" element={<SingleBook />} />
         <Route path="/login" element={<LoginForm />} />
         {/* <Route path="/register" element={<Register/>} /> */}
-        <Route path="/account" element={<Account />}/>
+        {token && <Route path="/account" element={<Account />}/>}
       </Routes>
 
 
