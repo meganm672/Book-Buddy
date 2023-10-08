@@ -1,34 +1,46 @@
 import { useState } from "react";
-
+import { useNavigate } from "react-router-dom";
 import { Stack, Button, Paper, TextField, Typography, Link } from "@mui/material";
 
 import { useRegisterMutation, useLoginMutation } from "../redux/api";
+
 const LoginForm = () => {
     const [register, {isLoading}] = useRegisterMutation();
     const [login] = useLoginMutation();
+    const navigate = useNavigate();
 
-    console.log(isLoading? "Loading result" : "from useRegisterMutation", register)
-    console.log(isLoading? "Loading result" : "from useLoginMutation", login)
+   
      // should be either login or register, to match the API routes
      const [type, setType] = useState("login");
      // form fields
-     const [fistname, setFirstname] = useState("");
+     const [firstname, setFirstname] = useState("");
      const [lastname, setLastname] = useState("");
-     const [username, setUsername] = useState("");
+     const [email, setEmail] = useState("");
      const [password, setPassword] = useState("");
      const [repeatPassword, setRepeatPassword] = useState("");
 
+    // const resetForm = () =>{
+    //     setFirstname("");
+    //     setLastname(""),
+    //     setEmail(""),
+    //     setPassword(""),
+    //     setRepeatPassword(""),
+    // }
 
-const handleSubmit = async (event) => {
+
+    const handleSubmit = async (event) => {
+
     event.preventDefault();
 
     if (type === "register") {
         // pass the new user data stored in react state
-        register({user: {username, password}});
+       await register({firstname, lastname, email, password});
+        navigate("/account")
     }
 
     if (type === "login") {
-        login({user: {username, password}});
+        await login({email, password});
+        navigate("/account")
     }
 
 }
@@ -45,7 +57,7 @@ return (
                 {type === "register" && <TextField
                     label="First Name"
                     onChange={e => setFirstname(e.target.value)}
-                    value={fistname}
+                    value={firstname}
                     sx={{margin: "8px 0"}}
                     />}
                 {type === "register" && <TextField
@@ -55,11 +67,12 @@ return (
                     sx={{margin: "8px 0"}}
                     />}
                 <TextField
-                    label="Username"
-                    onChange={e => setUsername(e.target.value)}
-                    value={username}
+                    label="Email"
+                    onChange={e => setEmail(e.target.value)}
+                    value={email}
                     sx={{margin: "8px 0"}}
                     />
+
                 <TextField
                     label="Password"
                     onChange={e => setPassword(e.target.value)}
@@ -72,6 +85,7 @@ return (
                         onChange={e => setRepeatPassword(e.target.value)}
                         value={repeatPassword}
                         type="password"
+                        sx={{margin: "8px 0"}}
                         error={!!(password && repeatPassword && password !== repeatPassword)}
                         helperText={password && repeatPassword && password !== repeatPassword ? "Password must match" : null}
                     />}
@@ -84,6 +98,7 @@ return (
                 >
                     {type === "login" ? "Log In" : "Register"}
                 </Button>
+                {/* <Button onClick={resetForm}>Reset</Button> */}
                 {type === "login"
                     ? (
                         <Typography>Need to create an account?{" "}

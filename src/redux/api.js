@@ -8,7 +8,14 @@ const api= createApi({
         //base url for API calls
         baseUrl: "https://fsa-book-buddy-b6e748d1380d.herokuapp.com/api",
         // set the Content-Type header to the application/json
-        prepareHeaders: (headers) => headers.set("Content-Type", "application/json")
+        prepareHeaders: (headers, {getState}) => {
+            const token = getState().token
+            headers.set("Content-Type", "application/json")
+            if(token){
+                headers.set('authorization', `Bearer ${token}`)
+            }
+            return headers
+        },
     }),
 
 // define the API endpoints we are trying to access
@@ -23,6 +30,7 @@ const api= createApi({
             query: (bookId)=> "/books/" + bookId,
         }),
 
+
         // Mutation for both checking out and returning a book 
         updateBookAvailability: builder.mutation({
             query: (bookId, available) => ({
@@ -31,6 +39,9 @@ const api= createApi({
                 body: {available}
             }),
             
+        //get users/me query to view account
+        getUsers: builder.query({
+            query: () => "/users/me"
 
         }),
         //add mutations below...
@@ -41,10 +52,6 @@ const api= createApi({
                 method: "POST",
                 body: user
             }),
-            // transform the response so that we don't have to call .data all over our app
-            transformResponse: (response) => response.data,
-            // transform error response to extract the error, so we don't have to call .error to get it
-            transformErrorResponse: (response) => response.error,
         }),
 
         //add the login mutation 
@@ -54,8 +61,6 @@ const api= createApi({
                 method: "POST",
                 body: user
             }),
-            transformResponse: (response) => response.data,
-            transformErrorResponse: (response) => response.error,
         })
     })
 })
@@ -68,4 +73,5 @@ export const {
     useRegisterMutation,
     useLoginMutation,
     useUpdateBookAvailabilityMutation,
+    useGetUsersQuery,
 } = api;
