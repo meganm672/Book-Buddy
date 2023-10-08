@@ -7,7 +7,7 @@ import React from 'react';
 import { Link as RouterLink} from 'react-router-dom'
 //import the booklogo
 import bookLogo from '../assets/books.png'
-
+import { useSelector } from 'react-redux'
 //import the mui components
 import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
@@ -19,7 +19,9 @@ import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 
+// import use slectro to get token and do token && login and account 
 const Navigations= () =>{
+  const token = useSelector(state => state.token);
     const [anchorEl, setAnchorEl] = React.useState(null);
     const open = Boolean(anchorEl);
 
@@ -53,7 +55,7 @@ const Navigations= () =>{
             <img id='logo-image' src={bookLogo}/> Library App
           </Typography>
           
-          <Button color="inherit" component={RouterLink} to="/login">Login</Button>
+          {!token && <Button color="inherit" component={RouterLink} to="/login">Login</Button>}
           <Menu
         id="demo-positioned-menu"
         aria-labelledby="demo-positioned-button"
@@ -70,7 +72,7 @@ const Navigations= () =>{
         }}
       >
         <MenuItem onClick={handleClose} component={RouterLink} to="/books">Home</MenuItem>
-        <MenuItem onClick={handleClose} component={RouterLink} to="/account">Account</MenuItem>
+        {token && <MenuItem onClick={handleClose} component={RouterLink} to="/account">Account</MenuItem>}
       </Menu>
         </Toolbar>
       </AppBar>
