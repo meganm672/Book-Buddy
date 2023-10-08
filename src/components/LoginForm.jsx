@@ -27,7 +27,9 @@ const LoginForm = () => {
     //     setRepeatPassword(""),
     // }
 
+
     const handleSubmit = async (event) => {
+
     event.preventDefault();
 
     if (type === "register") {

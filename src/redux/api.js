@@ -29,9 +29,20 @@ const api= createApi({
         getSingleBook: builder.query({
             query: (bookId)=> "/books/" + bookId,
         }),
+
+
+        // Mutation for both checking out and returning a book 
+        updateBookAvailability: builder.mutation({
+            query: (bookId, available) => ({
+                url: "/books/" + bookId,
+                method: "PATCH" ,
+                body: {available}
+            }),
+            
         //get users/me query to view account
         getUsers: builder.query({
             query: () => "/users/me"
+
         }),
         //add mutations below...
         //add the users register mutation
@@ -61,5 +72,6 @@ export const {
     useGetSingleBookQuery,
     useRegisterMutation,
     useLoginMutation,
+    useUpdateBookAvailabilityMutation,
     useGetUsersQuery,
 } = api;
