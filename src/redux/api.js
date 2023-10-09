@@ -30,6 +30,20 @@ const api = createApi({
             query: (bookId) => "/books/" + bookId,
         }),
 
+        //reservation query
+        getBookReservations: builder.query({
+            query: () => "/reservations"
+        }),
+
+        // delete reservations mutation
+        deleteBookReservations: builder.mutation({
+            query: (reservationId) => ({
+                url: "/reservations/" + reservationId,
+                method: "DELETE", 
+            })
+        }),
+        
+
 
         // Mutation for both checking out and returning a book 
         updateBookAvailability: builder.mutation({
@@ -75,4 +89,6 @@ export const {
     useLoginMutation,
     useUpdateBookAvailabilityMutation,
     useGetUsersQuery,
+    useGetBookReservationsQuery,
+    useDeleteBookReservationsMutation,
 } = api;
