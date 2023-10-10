@@ -2,6 +2,7 @@
 page application. You may consider conditionally rendering some options - 
 for example 'Login' should be available if someone has not logged in yet. */
 import React from 'react';
+import { setToken } from '../redux/tokenSlice';
 
 //import Link as RouterLink for mui 
 import { Link as RouterLink, useNavigate } from 'react-router-dom'
@@ -18,7 +19,6 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
-
 // import use slectro to get token and do token && login and account 
 const Navigations = () => {
   const token = useSelector(state => state.token);
@@ -57,20 +57,14 @@ const Navigations = () => {
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             <img id='logo-image' src={bookLogo} /> Library App
           </Typography>
-          {/* {!token ? (<Button color="inherit" component={RouterLink} to="/login">Login</Button>)
-            : (<Button onClick={() => {
+          {token ?
+            (<Button 
+              color="inherit"
+              onClick={() => {
               dispatch(setToken({ token: null }))
               navigate('/books')
             }}
-            >Logout</Button>)} */}
-           {/* {token && ( 
-             <Button onClick={() => { 
-            dispatch(setToken({ token: null }))
-              navigate('/books')
-            }}
-             >Logout</Button>
-           )} */}
-           {!token && <Button color="inherit" component={RouterLink} to="/login">Login</Button>}
+            >Logout</Button>) : (<Button color="inherit" component={RouterLink} to="/login">Login</Button>)}
           <Menu
             id="demo-positioned-menu"
             aria-labelledby="demo-positioned-button"
