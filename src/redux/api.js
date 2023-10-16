@@ -32,7 +32,7 @@ const api = createApi({
 
         //reservation query
         getBookReservations: builder.query({
-            query: () => "/reservations"
+            query: () => "/reservations" 
         }),
 
         // delete reservations mutation

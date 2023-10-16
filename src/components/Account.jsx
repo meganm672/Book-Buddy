@@ -12,10 +12,10 @@ export default function Account() {
   const [returnError, setReturnError] = useState(null);
 
    
-   const { data: userDetails, isError, isLoading } = useGetUsersQuery();
-   const [updateBookAvailability] = useUpdateBookAvailabilityMutation();
+  const { data: userDetails, isError, isLoading } = useGetUsersQuery();
+  const [updateBookAvailability] = useUpdateBookAvailabilityMutation();
 
-   const handleCheckout = async () => {
+  const handleCheckout = async () => {
     setIsCheckingOut(true);
     setCheckoutError(null);
 
@@ -35,7 +35,7 @@ export default function Account() {
       } finally {
         setIsCheckingOut(false);
       }
-    };
+  };
 
     const handleReturn = async () => {
         setIsReturning(true);
