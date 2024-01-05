@@ -14,7 +14,7 @@ import { Routes, Route, useNavigate } from "react-router-dom"
 
 
 
-function App() {
+function App() { 
   const token = useSelector(state => state.token);
   console.log("The Token is :", token)
 
