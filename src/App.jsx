@@ -9,24 +9,24 @@ import SingleBook from './components/SingleBook'
 
 
 // import components from react router dom
-import { Routes, Route, useNavigate } from "react-router-dom"
+import { Routes, Route, Navigate } from "react-router-dom"
 
 
 
 
-function App() { 
+function App() {
   const token = useSelector(state => state.token);
-  console.log("The Token is :", token)
-
 
   return (
     <>
       <Navigations />
       <Routes>
+        <Route path="/" element={<Books />} />
         <Route path="/books" element={<Books />} />
         <Route path="/books/:id" element={<SingleBook />} />
-        <Route path="/login" element={<LoginForm />} />
-        {token && <Route path="/account" element={<Account />} />}
+        <Route path="/login" element={<LoginForm type="login" />} />
+        <Route path="/register" element={<LoginForm type="register" />} />
+        {<Route path="/account" element={token ? <Account /> : <Navigate to="/login" />} />}
       </Routes>
     </>
   )

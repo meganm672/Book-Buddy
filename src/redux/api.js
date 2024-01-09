@@ -17,46 +17,55 @@ const api = createApi({
             return headers
         },
     }),
-
+    tagTypes: ['Book', 'User', 'Reservation'],
     // define the API endpoints we are trying to access
     endpoints: (builder) => ({
 
         //specify the query for getting all the books
         getBooks: builder.query({
             query: () => "/books",
+            providesTags: ["Book"]
         }),
         //singlebooks query
         getSingleBook: builder.query({
             query: (bookId) => "/books/" + bookId,
+            providesTags: ["Book"]
         }),
 
         //reservation query
         getBookReservations: builder.query({
-            query: () => "/reservations" 
+            query: () => "/reservations",
+            providesTags: ["Reservation"]
         }),
 
         // delete reservations mutation
         deleteBookReservations: builder.mutation({
             query: (reservationId) => ({
                 url: "/reservations/" + reservationId,
-                method: "DELETE", 
+                method: "DELETE",
             })
         }),
-        
 
-
-        // Mutation for both checking out and returning a book 
-        updateBookAvailability: builder.mutation({
-            query: (bookId, available) => ({
-                url: "/books/" + bookId,
+        checkoutBook: builder.mutation({
+            query: (id) => ({
+                url: '/books/' + id,
                 method: "PATCH",
-                body: { available }
+                body: { availability: false },
             }),
+            invalidatesTags: ["Book", "Reservation"]
+        }),
+
+        returnBook: builder.mutation({
+            query: (id) => ({
+                url: '/reservations/' + id,
+                method: "DELETE",
+            }),
+            invalidatesTags: ["Reservation"]
         }),
         //get users/me query to view account
         getUsers: builder.query({
-            query: () => "/users/me"
-
+            query: () => "/users/me",
+            providesTags: ["User"]
         }),
         //add mutations below...
         //add the users register mutation
@@ -87,7 +96,8 @@ export const {
     useGetSingleBookQuery,
     useRegisterMutation,
     useLoginMutation,
-    useUpdateBookAvailabilityMutation,
+    useReturnBookMutation,
+    useCheckoutBookMutation,
     useGetUsersQuery,
     useGetBookReservationsQuery,
     useDeleteBookReservationsMutation,
