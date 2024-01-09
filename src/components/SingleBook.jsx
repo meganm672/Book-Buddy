@@ -26,9 +26,6 @@ export default function SingleBook() {
         return <Typography>Error: {error.message}</Typography>;
     }
 
-
-
-
     return (
         <Box sx={{ margin: 5 }}>
             {error && !data && (<p>Failed to load Book.</p>)}

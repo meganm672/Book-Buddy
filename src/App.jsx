@@ -1,4 +1,4 @@
-import { useSelector, useDispatch } from 'react-redux'
+import { useSelector} from 'react-redux'
 
 //Import the components into the app
 import Books from "./components/Books"
@@ -10,8 +10,6 @@ import SingleBook from './components/SingleBook'
 
 // import components from react router dom
 import { Routes, Route, Navigate } from "react-router-dom"
-
-
 
 
 function App() {

@@ -1,10 +1,10 @@
 //this route returns a list of books the current user has checked out.
-import {useState, useEffect} from "react"; 
+
 import { useGetBookReservationsQuery, useReturnBookMutation} from "../redux/api";
 import CardActions from '@mui/material/CardActions';
 import Button from '@mui/material/Button';
 import Grid from '@mui/material/Grid';
-import CircularProgress from '@mui/material/CircularProgress';
+
 import Alert from '@mui/material/Alert';
 import Typography from '@mui/material/Typography';
 import Card from '@mui/material/Card';
